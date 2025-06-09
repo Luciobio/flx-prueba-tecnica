@@ -8,7 +8,7 @@ import UserTable from "./UserTable";
 import UserFormModal from "./modals/UserFormModal";
 
 const UserCRUD = () => {
-  const { addUser } = useUserContext();
+  const { addUser, totalUsers, pagination, setPage } = useUserContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -20,6 +20,8 @@ const UserCRUD = () => {
       await addUser(formData);
       message.success("Usuario creado con éxito");
       handleCloseModal();
+      const lastPageOffset = Math.floor((totalUsers + 1) / pagination.limit) * pagination.limit;
+      setPage(lastPageOffset);
     } catch (error) {
       message.error("Hubo un error al crear el usuario");
       console.error("Error al crear el usuario:", error);

@@ -34,8 +34,8 @@ export const UserProvider = ({ children }) => {
         try {
             setLoading(true);
             const userWithId = { ...user, id: uuidv4() };
-            const newUser = await createUser(userWithId);
-            setUsers((prevUsers) => [...prevUsers, newUser]);
+            await createUser(userWithId);
+            await loadUsers();
         } catch (error) {
             console.error('Error creando usuario:', error);
         } finally {
@@ -61,7 +61,7 @@ export const UserProvider = ({ children }) => {
         try {
             setLoading(true);
             await deleteUser(id);
-            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+            await loadUsers();
         } catch (error) {
             console.error('Error al borrar el usuario:', error);
         } finally {

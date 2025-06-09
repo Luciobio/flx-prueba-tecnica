@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { React, createContext, useContext, useState, useEffect } from 'react';
 import { createUser, updateUser, deleteUser, getUsersPaginated } from '../services/UserService';
+import { v4 as uuidv4 } from 'uuid';
 
 const UserContext = createContext();
 
@@ -32,7 +33,8 @@ export const UserProvider = ({ children }) => {
     const addUser = async (user) => {
         try {
             setLoading(true);
-            const newUser = await createUser(user);
+            const userWithId = { ...user, id: uuidv4() };
+            const newUser = await createUser(userWithId);
             setUsers((prevUsers) => [...prevUsers, newUser]);
         } catch (error) {
             console.error('Error creando usuario:', error);

@@ -467,6 +467,42 @@
       "status": "active",
       "age": 70,
       "id": 53
+    },
+    {
+      "username": "marilin89",
+      "email": "marilin@aol.com",
+      "name": "Marilin",
+      "lastname": "Merchante",
+      "status": "active",
+      "age": 25,
+      "id": 54
+    },
+    {
+      "username": "Usuario101",
+      "email": "101@aol.com",
+      "name": "Nicanor",
+      "lastname": "Dalas",
+      "status": "inactive",
+      "age": 53,
+      "id": 55
+    },
+    {
+      "username": "piterparker",
+      "email": "piter@parker.com",
+      "name": "Piter",
+      "lastname": "Parker",
+      "status": "active",
+      "age": 30,
+      "id": "0b628f03-6523-44af-9cdd-bcecf124ee20"
+    },
+    {
+      "username": "Lisboa38",
+      "email": "lis@boa.com",
+      "name": "Lis",
+      "lastname": "Boa",
+      "status": "active",
+      "age": 30,
+      "id": "acdf282e-75af-4ed6-8589-f0bb157b7a26"
     }
   ]
 }

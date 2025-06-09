@@ -83,7 +83,6 @@ export const UserProvider = ({ children }) => {
         setPagination(prev => ({ ...prev, offset: 0 }));
     };
 
-
     useEffect(() => {
         loadUsers();
     }, [pagination, filters]);

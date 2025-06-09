@@ -1,6 +1,6 @@
-import { React, useRef } from 'react';
+/* eslint-disable react/prop-types */
+import { React, useState, useEffect, useRef } from 'react';
 import { Input } from 'antd';
-import { useUserContext } from '../../context/UserContext';
 
 const { Search } = Input;
 
@@ -15,23 +15,29 @@ const debounce = (fx, delay) => {
     };
 };
 
-const SearchBox = () => {
-    const { updateNameFilter } = useUserContext();
+const SearchBox = ({ value, onChange }) => {
+    const [inputValue, setInputValue] = useState(value || '');
+
+    useEffect(() => {
+        setInputValue(value || '');
+    }, [value]);
 
     const debounceRef = useRef(
         debounce((query) => {
-            updateNameFilter(query);
+            onChange(query);
         }, 500)
     );
 
     const handleChange = (e) => {
-        const query = e.target.value;
-        debounceRef.current(query);
+        const newValue = e.target.value;
+        setInputValue(newValue);
+        debounceRef.current(newValue);
     };
 
     return (
         <Search
             placeholder="Buscar Usuarios"
+            value={inputValue}
             onChange={handleChange}
             allowClear
             style={{

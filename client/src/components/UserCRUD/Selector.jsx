@@ -1,13 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Select } from 'antd';
-import { useUserContext } from '../../context/UserContext';
 
-const Selector = () => {
-    const { updateStatusFilter } = useUserContext();
-
-    const handleChange = (value) => {
-        updateStatusFilter(value);
-    };
+const Selector = ({ value, onChange }) => {
 
     return (
         <Select
@@ -15,7 +10,8 @@ const Selector = () => {
                 width: 180,
             }}
             placeholder="Filtrar por estado"
-            onChange={handleChange}
+            value={value || undefined}
+            onChange={onChange}
             allowClear
             options={[
                 {

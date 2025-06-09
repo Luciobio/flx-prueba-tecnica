@@ -1,0 +1,23 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 92px;
+  background: #D9D9D9;
+}
+
+.content {
+  flex: 1;
+  padding: 0 50px;
+  background: #F5F5F5;
+}
+
+.site-layout-content {
+  background: #F5F5F5;
+  min-height: 280px;
+}

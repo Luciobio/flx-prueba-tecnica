@@ -1,22 +1,13 @@
 {
   "users": [
     {
-      "id": 1,
-      "username": "user1",
-      "name": "John",
-      "lastname": "Doe",
-      "email": "john.doe@example.com",
-      "status": "active",
-      "age": 30
-    },
-    {
-      "id": 2,
       "username": "user2",
+      "email": "jane.smith@example.com",
       "name": "Jane",
       "lastname": "Smith",
-      "email": "jane.smith@example.com",
       "status": "inactive",
-      "age": 25
+      "age": 26,
+      "id": 2
     },
     {
       "id": 3,
@@ -449,6 +440,33 @@
       "email": "grace.allen@example.com",
       "status": "active",
       "age": 32
+    },
+    {
+      "username": "user00",
+      "email": "lu@ciano.com",
+      "name": "Lu",
+      "lastname": "Ciano",
+      "status": "active",
+      "age": 35,
+      "id": 51
+    },
+    {
+      "username": "user001",
+      "email": "user01@aol.com",
+      "name": "user",
+      "lastname": "cerouno",
+      "status": "inactive",
+      "age": 18,
+      "id": 52
+    },
+    {
+      "username": "abc001",
+      "email": "abc@aol.com",
+      "name": "abc",
+      "lastname": "minerva",
+      "status": "active",
+      "age": 70,
+      "id": 53
     }
   ]
 }

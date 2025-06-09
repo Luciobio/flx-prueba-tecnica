@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Col, Row, Divider, Button } from 'antd';
 
-const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = false }) => {
+const UserFormModal = ({ open, onClose, onSubmit, title, confirmTxt,  initialValues = {}, isEdit = false }) => {
     const [loading, setLoading] = useState(false);
 
     const [form] = Form.useForm();
+
+    useEffect(() => {
+        if (open) {
+            if (isEdit && initialValues) {
+                form.setFieldsValue(initialValues);
+            } else {
+                form.resetFields();
+            }
+        }
+    }, [open, isEdit, initialValues]);
 
     const handleOk = () => {
         form.validateFields()
@@ -25,12 +35,12 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
 
     return (
         <Modal
-            title={isEdit ? 'Editar Usuario' : 'Agregar Usuario'}
+            title={title}
             open={open}
             onCancel={handleCancel}
             footer={[
                 <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                    {isEdit ? 'Editar Usuario' : 'Agregar Usuario'}
+                    {confirmTxt}
                 </Button>
             ]}
         >
@@ -48,7 +58,7 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
                             label="Usuario"
                             rules={[{ required: true, message: 'Ingrese un nombre de usuario' }]}
                         >
-                            <Input placeholder="johndoe" />
+                            <Input placeholder="luciobio" />
                         </Form.Item>
                     </Col>
 
@@ -61,7 +71,7 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
                                 { type: 'email', message: 'Ingrese un email válido' }
                             ]}
                         >
-                            <Input placeholder="johndoe@domain.com" />
+                            <Input placeholder="pardobio@gmail.com" />
                         </Form.Item>
                     </Col>
 
@@ -71,7 +81,7 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
                             label="Nombre"
                             rules={[{ required: true, message: 'Ingrese el nombre' }]}
                         >
-                            <Input placeholder="John" />
+                            <Input placeholder="Luciano" />
                         </Form.Item>
                     </Col>
 
@@ -81,7 +91,7 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
                             label="Apellido"
                             rules={[{ required: true, message: 'Ingrese el apellido' }]}
                         >
-                            <Input placeholder="Doe" />
+                            <Input placeholder="Pardo" />
                         </Form.Item>
                     </Col>
 
@@ -107,7 +117,7 @@ const UserFormModal = ({ open, onClose, onSubmit, initialValues = {}, isEdit = f
                             label="Edad"
                             rules={[{ required: true, message: 'Ingrese la edad' }]}
                         >
-                            <InputNumber placeholder="43" style={{ width: '100%' }} />
+                            <InputNumber placeholder="35" style={{ width: '100%' }} />
                         </Form.Item>
                     </Col>
                 </Row>

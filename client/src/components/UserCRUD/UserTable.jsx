@@ -109,6 +109,8 @@ const UserTable = () => {
 
       <UserFormModal
         open={isEditModalOpen}
+        title={'Editar Usuario'}
+        confirmTxt={'Editar Usuario'}
         onClose={handleCloseModal}
         onSubmit={handleSubmit}
         initialValues={editingUser}

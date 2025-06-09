@@ -41,6 +41,8 @@ const UserCRUD = () => {
 
       <UserFormModal
         open={isModalOpen}
+        title={'Agregar Usuario'}
+        confirmTxt={'Agregar Usuario'}
         onClose={handleCloseModal}
         onSubmit={handleCreateUser}
         isEdit={false}

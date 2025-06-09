@@ -3,7 +3,7 @@
     {
       "username": "user2",
       "email": "jane.smith@example.com",
-      "name": "Jane",
+      "name": "Janes",
       "lastname": "Smith",
       "status": "inactive",
       "age": 26,
@@ -453,10 +453,10 @@
     {
       "username": "user001",
       "email": "user01@aol.com",
-      "name": "user",
-      "lastname": "cerouno",
+      "name": "User",
+      "lastname": "Cerouno",
       "status": "inactive",
-      "age": 18,
+      "age": 20,
       "id": 52
     },
     {

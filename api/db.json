@@ -91,13 +91,13 @@
       "age": 38
     },
     {
-      "id": 12,
       "username": "user12",
+      "email": "amelia.perez@example.com",
       "name": "Amelia",
       "lastname": "Perez",
-      "email": "amelia.perez@example.com",
       "status": "inactive",
-      "age": 42
+      "age": 43,
+      "id": 12
     },
     {
       "id": 13,

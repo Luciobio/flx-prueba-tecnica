@@ -3,13 +3,10 @@ import { Select } from 'antd';
 import { useUserContext } from '../../context/UserContext';
 
 const Selector = () => {
-    const { setFilterAndReload, filters } = useUserContext();
+    const { updateStatusFilter } = useUserContext();
 
     const handleChange = (value) => {
-        setFilterAndReload({
-            ...filters,
-            status: value,
-        });
+        updateStatusFilter(value);
     };
 
     return (

@@ -69,14 +69,20 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    const setFilterAndReload = (newFilters) => {
-        setFilters(newFilters);
-        setPagination(prevPagination => ({ ...prevPagination, offset: 0 }));
-    }
-
     const setPage = (newOffset) => {
         setPagination(prevPagination => ({ ...prevPagination, offset: newOffset }));
     }
+
+    const updateNameFilter = (name) => {
+        setFilters(prev => ({ ...prev, name }));
+        setPagination(prev => ({ ...prev, offset: 0 }));
+    };
+
+    const updateStatusFilter = (status) => {
+        setFilters(prev => ({ ...prev, status }));
+        setPagination(prev => ({ ...prev, offset: 0 }));
+    };
+
 
     useEffect(() => {
         loadUsers();
@@ -91,10 +97,11 @@ export const UserProvider = ({ children }) => {
                 addUser,
                 editUser,
                 removeUser,
-                setFilterAndReload,
                 setPage,
                 pagination,
-                filters
+                filters,
+                updateNameFilter,
+                updateStatusFilter
             }}
         >
             {children}

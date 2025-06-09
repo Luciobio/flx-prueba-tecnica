@@ -584,6 +584,33 @@
       "status": "active",
       "age": 90,
       "id": "e416a8e8-6233-4fb6-8020-1165342df389"
+    },
+    {
+      "username": "Luciobio",
+      "email": "lucio@bio.com",
+      "name": "Lucio",
+      "lastname": "Bio",
+      "status": "inactive",
+      "age": 35,
+      "id": "b8432dfa-1b7b-4cdb-9bea-c6f7ca96c0ec"
+    },
+    {
+      "username": "mika",
+      "email": "mika@mika.com",
+      "name": "mika",
+      "lastname": "johnson",
+      "status": "inactive",
+      "age": 35,
+      "id": "57a5e781-19bd-4f43-a5f6-1964317ef902"
+    },
+    {
+      "username": "mikin",
+      "email": "mik@in.in",
+      "name": "mikin",
+      "lastname": "mikole",
+      "status": "active",
+      "age": 50,
+      "id": "58a3e55d-4135-4c4f-a7d6-76a275decc1e"
     }
   ]
 }

@@ -34,11 +34,12 @@ const UserCRUD = () => {
 
       resetAllFilters();
 
+      // Obtenemos el total de usuarios sin filtrar
       const { total } = await getUsersPaginated({
-      limit: pagination.limit,
-      offset: 0,
-      name: '',
-      status: '',
+        limit: pagination.limit,
+        offset: 0,
+        name: '',
+        status: '',
       });
 
       // Muestra la ultima página después de crear un usuario para visualizarlo

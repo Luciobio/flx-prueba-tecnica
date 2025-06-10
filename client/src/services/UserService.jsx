@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-/* const API_URL = import.meta.env.API_URL; */
+// Importando la URL de la API desde las variables de entorno
 const API_URL = import.meta.env.VITE_API_URL;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -39,6 +39,7 @@ export const deleteUser = async (id) => {
     await axios.delete(`${API_URL}/${id}`);
 };
 
+// Validacion de duplicados al crear
 export const isUserDuplicate = async (username, email) => {
     const { data: usersByName } = await axios.get(`${API_URL}?username=${username}`);
     const { data: usersByEmail } = await axios.get(`${API_URL}?email=${email}`);
@@ -48,6 +49,7 @@ export const isUserDuplicate = async (username, email) => {
     };
 };
 
+// Validacion de duplicados al editar
 export const isUserDuplicateOnEdit = async (id, username, email) => {
     const { data: usersByName } = await axios.get(`${API_URL}?username=${username}`);
     const { data: usersByEmail } = await axios.get(`${API_URL}?email=${email}`);

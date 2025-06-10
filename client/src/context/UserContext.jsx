@@ -24,7 +24,7 @@ export const UserProvider = ({ children }) => {
             setUsers(data);
             setTotalUsers(total);
         } catch (error) {
-            console.error('Error loading users:', error);
+            console.error('Error cargando usuarios:', error);
         } finally {
             setLoading(false);
         }
@@ -45,6 +45,7 @@ export const UserProvider = ({ children }) => {
                 throw new Error(`${duplicateMsg.charAt(0).toUpperCase() + duplicateMsg.slice(1)} ya en uso.`);
             }
 
+            // Generar un ID único para el nuevo usuario
             const userWithId = { ...user, id: uuidv4() };
             await createUser(userWithId);
             await loadUsers();

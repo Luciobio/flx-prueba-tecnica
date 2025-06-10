@@ -38,14 +38,14 @@ const UserTable = () => {
   };
 
   const handleSubmit = async (formData) => {
-  if (!editingUser?.id) return;
-  try {
-    await editUser(editingUser.id, formData);
-    message.success("Usuario actualizado con éxito");
-  } catch (error) {
-    throw error;
-  }
-};
+    if (!editingUser?.id) return;
+    try {
+      await editUser(editingUser.id, formData);
+      message.success("Usuario actualizado con éxito");
+    } catch (error) {
+      throw error;
+    }
+  };
 
 
   const columns = [

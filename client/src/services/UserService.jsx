@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /* const API_URL = import.meta.env.API_URL; */
-const API_URL = 'http://localhost:4000/users';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 const ML = 500;

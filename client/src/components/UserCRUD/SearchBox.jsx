@@ -1,49 +1,33 @@
 /* eslint-disable react/prop-types */
-import { React, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from 'antd';
-
+import { useDebouncedCallback } from '../../hooks/useDebouncedCallback'; // Asegúrate de que esta ruta sea correcta
 const { Search } = Input;
 
-// Función debounce para evitar múltiples llamadas a la API
-const debounce = (fx, delay) => {
-    let timeoutId;
-    return (...args) => {
-        if (timeoutId) clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-            fx(...args);
-        }, delay);
-    };
-};
-
 const SearchBox = ({ value, onChange }) => {
-    const [inputValue, setInputValue] = useState(value || '');
+  const [inputValue, setInputValue] = useState(value || '');
 
-    useEffect(() => {
-        setInputValue(value || '');
-    }, [value]);
+  useEffect(() => {
+    setInputValue(value || '');
+  }, [value]);
 
-    const debounceRef = useRef(
-        debounce((query) => {
-            onChange(query);
-        }, 500)
-    );
+  const debouncedOnChange = useDebouncedCallback(onChange, 500);
 
-    const handleChange = (e) => {
-        const newValue = e.target.value;
-        setInputValue(newValue);
-        debounceRef.current(newValue);
-    };
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    debouncedOnChange(newValue);
+  };
 
-    return (
-        <Search
-            placeholder="Buscar Usuarios"
-            value={inputValue}
-            onChange={handleChange}
-            allowClear
-            style={{
-                width: 300,
-            }}
-        />
-    )
+  return (
+    <Search
+      placeholder="Buscar Usuarios"
+      value={inputValue}
+      onChange={handleChange}
+      allowClear
+      style={{ width: 300 }}
+    />
+  );
 };
+
 export default SearchBox;

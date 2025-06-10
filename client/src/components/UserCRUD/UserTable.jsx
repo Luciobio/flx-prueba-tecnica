@@ -1,5 +1,6 @@
+/* eslint-disable no-useless-catch */
 import { React, useState } from 'react';
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Tag, message } from 'antd';
 import UserFormModal from './modals/UserFormModal';
 import UserDeleteModal from './modals/UserDeleteModal';
 import { useUserContext } from '../../context/UserContext';
@@ -37,11 +38,15 @@ const UserTable = () => {
   };
 
   const handleSubmit = async (formData) => {
-    if (!editingUser?.id) return;
-
+  if (!editingUser?.id) return;
+  try {
     await editUser(editingUser.id, formData);
-    handleCloseModal();
-  };
+    message.success("Usuario actualizado con éxito");
+  } catch (error) {
+    throw error;
+  }
+};
+
 
   const columns = [
     {

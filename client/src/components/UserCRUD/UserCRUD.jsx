@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { React, useState } from "react";
 import { Button, Space, message } from 'antd';
 import { useUserContext } from "../../context/UserContext";
@@ -30,7 +31,6 @@ const UserCRUD = () => {
     try {
       await addUser(formData);
       message.success("Usuario creado con éxito");
-      handleCloseModal();
 
       resetAllFilters();
 
@@ -45,8 +45,7 @@ const UserCRUD = () => {
       const lastPageOffset = Math.floor((total + 1) / pagination.limit) * pagination.limit;
       setPage(lastPageOffset);
     } catch (error) {
-      message.error("Hubo un error al crear el usuario");
-      console.error("Error al crear el usuario:", error);
+      throw error;
     }
   };
 

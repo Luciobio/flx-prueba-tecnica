@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { React, createContext, useContext, useState, useEffect } from 'react';
-import { createUser, updateUser, deleteUser, getUsersPaginated } from '../services/UserService';
+import { createUser, updateUser, deleteUser, getUsersPaginated, isUserDuplicate, isUserDuplicateOnEdit } from '../services/UserService';
 import { v4 as uuidv4 } from 'uuid';
 
 const UserContext = createContext();
@@ -33,11 +33,24 @@ export const UserProvider = ({ children }) => {
     const addUser = async (user) => {
         try {
             setLoading(true);
+
+            // Validacion de duplicados
+            const { usernameExists, emailExists } = await isUserDuplicate(user.username, user.email);
+
+            if (usernameExists || emailExists) {
+                const duplicateMsg = [
+                    usernameExists ? 'nombre de usuario' : '',
+                    emailExists ? 'correo electrónico' : ''
+                ].filter(Boolean).join(' y ');
+                throw new Error(`${duplicateMsg.charAt(0).toUpperCase() + duplicateMsg.slice(1)} ya en uso.`);
+            }
+
             const userWithId = { ...user, id: uuidv4() };
             await createUser(userWithId);
             await loadUsers();
         } catch (error) {
             console.error('Error creando usuario:', error);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -46,12 +59,25 @@ export const UserProvider = ({ children }) => {
     const editUser = async (id, updateData) => {
         try {
             setLoading(true);
+
+            // Validacion de duplicados
+            const { usernameExists, emailExists } = await isUserDuplicateOnEdit(id, updateData.username, updateData.email);
+
+            if (usernameExists || emailExists) {
+                const duplicateMsg = [
+                    usernameExists ? 'nombre de usuario' : '',
+                    emailExists ? 'correo electrónico' : ''
+                ].filter(Boolean).join(' y ');
+                throw new Error(`${duplicateMsg.charAt(0).toUpperCase() + duplicateMsg.slice(1)} ya en uso.`);
+            }
+
             const updated = await updateUser(id, updateData);
             setUsers((prevUsers) =>
                 prevUsers.map((user) => (user.id === id ? updated : user))
             );
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error editando usuario:', error);
+            throw error;
         } finally {
             setLoading(false);
         }

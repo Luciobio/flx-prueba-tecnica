@@ -1,31 +1,66 @@
 /* eslint-disable react/prop-types */
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Col, Row, Divider, Button } from 'antd';
 
-const UserFormModal = ({ open, onClose, onSubmit, title, confirmTxt,  initialValues = {}, isEdit = false }) => {
+const UserFormModal = ({ open, onClose, onSubmit, title, confirmTxt, initialValues = {}, isEdit = false }) => {
     const [loading, setLoading] = useState(false);
+    const hadErrorRef = useRef(false);
 
     const [form] = Form.useForm();
 
     useEffect(() => {
         if (open) {
+            if (hadErrorRef.current) {
+                // No resetear el formulario si hubo un error
+                hadErrorRef.current = false;
+                return;
+            }
+
+            // Si es edición, precargar valores
             if (isEdit && initialValues) {
                 form.setFieldsValue(initialValues);
             } else {
+                // Resetear solo si no hay valores (nuevo usuario sin errores previos)
                 form.resetFields();
             }
         }
-    }, [open, isEdit, initialValues]);
+    }, [open]);
 
-    const handleOk = () => {
-        form.validateFields()
-            .then(values => {
-                setLoading(true);
-                onSubmit(values).finally(() => {
-                    setLoading(false);
-                    form.resetFields();
-                });
-            });
+
+    const handleOk = async () => {
+        try {
+            const values = await form.validateFields(); // valida y obtiene datos
+            setLoading(true);
+            await onSubmit(values); // ejecuta la lógica pasada desde el padre
+            form.resetFields();
+            onClose();
+        } catch (error) {
+            hadErrorRef.current = true;
+
+            // Si el error viene de validación, no hacemos nada más
+            if (error.errorFields) return;
+
+            // Si es otro error (como duplicados), mostrarlo en los campos
+            const errorMsg = error.message.toLowerCase();
+            const fieldsWithErrors = [];
+
+            if (errorMsg.includes('nombre de usuario') && errorMsg.includes('correo electrónico')) {
+                fieldsWithErrors.push(
+                    { name: 'username', errors: ['Nombre de usuario ya en uso.'] },
+                    { name: 'email', errors: ['Correo electrónico ya en uso.'] }
+                );
+            } else if (errorMsg.includes('nombre de usuario')) {
+                fieldsWithErrors.push({ name: 'username', errors: ['Nombre de usuario ya en uso.'] });
+            } else if (errorMsg.includes('correo electrónico') || errorMsg.includes('email')) {
+                fieldsWithErrors.push({ name: 'email', errors: ['Correo electrónico ya en uso.'] });
+            } else {
+                fieldsWithErrors.push({ name: 'username', errors: ['Error desconocido'] });
+            }
+
+            form.setFields(fieldsWithErrors);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleCancel = () => {

@@ -38,3 +38,22 @@ export const deleteUser = async (id) => {
     await delay(ML);
     await axios.delete(`${API_URL}/${id}`);
 };
+
+export const isUserDuplicate = async (username, email) => {
+    const { data: usersByName } = await axios.get(`${API_URL}?username=${username}`);
+    const { data: usersByEmail } = await axios.get(`${API_URL}?email=${email}`);
+    return {
+        usernameExists: usersByName.length > 0,
+        emailExists: usersByEmail.length > 0,
+    };
+};
+
+export const isUserDuplicateOnEdit = async (id, username, email) => {
+    const { data: usersByName } = await axios.get(`${API_URL}?username=${username}`);
+    const { data: usersByEmail } = await axios.get(`${API_URL}?email=${email}`);
+
+    const usernameExists = usersByName.some((user) => user.id !== id);
+    const emailExists = usersByEmail.some((user) => user.id !== id);
+
+    return { usernameExists, emailExists };
+};
